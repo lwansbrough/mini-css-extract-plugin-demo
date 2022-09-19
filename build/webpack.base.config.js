@@ -2,6 +2,7 @@
 const buildArgs = require('./build-arguments')
 const webpack = require('webpack')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const path = require('path')
 
@@ -55,6 +56,15 @@ const config = {
   },
   module: {
     rules: [
+      {
+        test: /\.(scss|css)$/,
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } },
+        ]
+      },
       {
         test: /\.vue$/,
         use: [
@@ -138,6 +148,11 @@ const config = {
       )
     }),
     new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[chunkhash:9].css',
+      chunkFilename: '[id].[chunkhash:9].css',
+      ignoreOrder: true
+    }),
     ...(isProduction || isStaging
       ? []
       : [new FriendlyErrorsPlugin()]),

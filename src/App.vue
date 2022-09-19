@@ -1,16 +1,27 @@
 <template>
-  <div>
-    <A/>
+  <div id="app">
+    <button @click="load">Load A</button>
+    <template v-if="loadA">
+      <A/>
+    </template>
   </div>
 </template>
 
 <script>
-import A from './A.vue'
-
 export default {
   name: 'App',
   components: {
-    A
+    A: () => import('./A.vue')
+  },
+  data() {
+    return {
+      loadA: false
+    }
+  },
+  methods: {
+    load() {
+      this.loadA = true
+    }
   }
 }
 </script>

@@ -17,7 +17,6 @@ createApp({
   url: window.location.href
 }).then(({
   app,
-  router,
   pinia
 }) => {
   if (window.__INITIAL_STATE__) {
@@ -26,7 +25,5 @@ createApp({
     pinia.state.value = window.__INITIAL_STATE__
   }
 
-  router.onReady(async () => {
-    app.$mount('#app')
-  })
+  app.$mount('#app')
 })

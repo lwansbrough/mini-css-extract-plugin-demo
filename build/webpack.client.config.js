@@ -5,7 +5,6 @@ const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const CssMinimizerPlugin  = require('css-minimizer-webpack-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const hash = require('string-hash')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
 const isStaging = process.env.NODE_ENV === 'staging'
@@ -52,35 +51,13 @@ const config = merge(baseConfig, {
       }
     }
   },
-  module: {
-    rules: [
-      {
-        test: /\.(scss|css)$/,
-        exclude: /node_modules/,
-        use: [
-          isStaging || isProduction ? MiniCssExtractPlugin.loader : 'vue-style-loader',
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } },
-        ]
-      }
-    ]
-  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.VUE_ENV': '"client"',
     }),
     // This plugins generates `vue-ssr-client-manifest.json` in the
     // output directory.
-    new VueSSRClientPlugin(),
-    ...(isProduction || isStaging
-      ? [
-        new MiniCssExtractPlugin({
-          filename: '[name].[chunkhash:9].css',
-          chunkFilename: '[id].[chunkhash:9].css',
-          ignoreOrder: true
-        }),
-      ]
-      : [])
+    new VueSSRClientPlugin()
   ]
 })
 module.exports = config

@@ -38,20 +38,6 @@ module.exports = merge(baseConfig, {
     allowlist: [/\.css$/, /\?vue&type=style/]
   })],
 
-  module: {
-    rules: [
-      {
-        test: /\.(scss|css)$/,
-        exclude: /node_modules/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
-      }
-    ]
-  },
-
   plugins: [
     new webpack.DefinePlugin({
       'process.env.VUE_ENV': '"server"'

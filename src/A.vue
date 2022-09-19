@@ -1,23 +1,29 @@
 <template>
   <div class="a">
-    <B/>
+    <template v-if="showB">
+      <B/>
+    </template>
   </div>
 </template>
 
 <script>
-import B from './B.vue'
-
 export default {
   name: 'A',
   components: {
-    B
+    B: () => import('./B.vue')
   },
   data() {
     return {
+      showB: false
     }
   },
   computed: {
     
+  },
+  mounted() {
+    setTimeout(() => {
+      this.showB = true
+    }, 3000)
   }
 }
 </script>
