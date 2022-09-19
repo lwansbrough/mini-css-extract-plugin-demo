@@ -30,12 +30,11 @@ export default {
 
 <style lang="scss" scoped>
 .a {
-  background: blue;
   height: 100%;
   width: 100%;
 }
 
 ::v-deep .b {
-  background: red;
+  background: green;
 }
 </style>

@@ -22,7 +22,7 @@ export default {
 
 <style lang="scss" scoped>
 .b {
-  background: green;
+  background: red;
   height: 100%;
   width: 100%;
 }
