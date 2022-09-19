@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      showB: false
+      showB: process.env.VUE_ENV === 'server' ? true : false
     }
   },
   computed: {
